@@ -19,11 +19,24 @@ bool Library::removeBook(const string& isbn) {
         [&isbn](const unique_ptr<Book>& book) {
             return book->getISBN() == isbn;
         });
-    
-    if (it != books.end()) {
-        books.erase(it);
-        return true;
+
+    //on s'assure que l'utilisateur veut vraiment supprimer le livre
+    string validation="";
+    cout<<"Voulez-vous vraiment supprimer ce livre? [oui/non] : ";
+    cin>>validation;
+
+    while(validation!="oui" && validation!="non"){
+        cout<<"Erreur. [oui/non] : ";
+        cin>>validation;
     }
+
+    if(validation=="oui"){
+        if (it != books.end()) {
+            books.erase(it);
+            return true;
+        }
+    }
+
     return false;
 }
 
