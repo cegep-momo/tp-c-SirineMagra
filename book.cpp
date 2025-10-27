@@ -55,8 +55,15 @@ string Book::toString() const{
 //retourne sous format fichier 
 string Book::toFileFormat() const{
     string fichier =title+"|"+author+"|"+isbn+"|";
+    string available="";
 
-    fichier +=isAvailable+"|";
+    if(isAvailable){
+        available="1";
+    }else{
+        available="0";
+    }
+
+    fichier +=available+"|";
 
     if(!isAvailable){
         fichier+=borrowerName+"|";
