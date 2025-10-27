@@ -1,5 +1,7 @@
 #include <iostream>
 #include <algorithm>
+#include <ctime>
+#include <fstream>
 
 #include "library.h"
 
@@ -136,6 +138,19 @@ bool Library::checkOutBook(const string& isbn, const string& userId) {
     if (book && user && book->getAvailability()) {
         book->checkOut(user->getName());
         user->borrowBook(isbn);
+
+        //enregistre l'emprunt dans un fichier
+        std::ofstream ecritureLog("log.txt",std::ios::app);
+        if(ecritureLog.is_open()){
+            time_t date;
+            time(&date);
+
+            ecritureLog<<book->getTitle()<<"|"<<user->getName()<<"|"<<ctime(&date);
+        }else{
+            cout<<"erreur lors de l'écriture du fichier log\n";
+        }
+        ecritureLog.close();
+
         return true;
     }
     return false;
