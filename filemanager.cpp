@@ -35,6 +35,13 @@ bool FileManager::saveBooksToFile(Library& library) {
     }
     
     file.close();
+
+    std::ofstream monFichier("books.csv");
+    for (Book* book : books) {
+        monFichier << book->toFileFormat() << "\n";
+    }
+    monFichier.close();
+
     return true;
 }
 
@@ -52,12 +59,21 @@ bool FileManager::saveUsersToFile(Library& library) {
     }
     
     file.close();
+
+    std::ofstream monFichier("users.csv");
+    for (User* user : users) {
+        monFichier << user->toFileFormat() << "\n";
+    }
+    monFichier.close();
+    
+
     return true;
 }
 
 // Load books from file
 bool FileManager::loadBooksFromFile(Library& library) {
-    ifstream file(booksFileName);
+    //récupère à partir du fichier .csv
+    ifstream file("books.csv");
     if (!file.is_open()) {
         cout << "Aucun fichier de livres existant trouvé. Démarrage avec une bibliothèque vide.\n";
         return false;
@@ -81,7 +97,8 @@ bool FileManager::loadBooksFromFile(Library& library) {
 
 // Load users from file
 bool FileManager::loadUsersFromFile(Library& library) {
-    ifstream file(usersFileName);
+    //récupère à partir du fichier .csv
+    ifstream file("users.csv");
     if (!file.is_open()) {
         cout << "Aucun fichier d'utilisateurs existant trouvé. Démarrage sans utilisateurs enregistrés.\n";
         return false;
