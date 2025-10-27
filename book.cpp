@@ -43,7 +43,7 @@ void Book::returnBook(){
 string Book::toString() const{
     string affichage ="Titre : "+title+"\nAutheur : "+author+"\nISBN : "+isbn;
 
-    if(!isAvailable){
+    if(borrowerName!=""){
         affichage+="\nIndisponible";
     }else{
         affichage+="\nDisponible";
@@ -65,6 +65,7 @@ string Book::toFileFormat() const{
     return fichier;
 }
 
+//récupère les infos d'un fichier
 void Book::fromFileFormat(const string& line){
     stringstream ss(line);
     string available="";
@@ -74,7 +75,11 @@ void Book::fromFileFormat(const string& line){
     getline(ss,isbn,'|');
     getline(ss,available,'|');
 
-    isAvailable = (bool)stoi(available);
+    if(available=="0"){
+        isAvailable=0;
+    }else{
+        isAvailable=1;
+    }
 
     if(available=="0"){
         getline(ss,borrowerName,'|');

@@ -45,5 +45,5 @@
         "streambuf": "cpp",
         "typeinfo": "cpp"
     },
-    "cmake.sourceDirectory": "/workspaces/docker-cpp/addition"
+    "cmake.sourceDirectory": "/home/sirine/Documents/5G4-25/dev-container-tp1/tp-c-SirineMagra"
 }
